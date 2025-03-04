@@ -9,9 +9,14 @@
     "coverage/**/*.*",
     ".godot/**/*.*",
     "**/*.tres",
-    "addons/**/*.*"
+    "addons/**/*.*",
+    "**/*.svg",
+    "**/*.uid",
+    "**/*.gltf",
   ],
   "words": [
+    "compatiblelicenses",
+    "lockguides",
     "Achroma",
     "Ahoge",
     "Aiko",
