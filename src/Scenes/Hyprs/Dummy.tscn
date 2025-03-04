@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://d27nukgkwvu02"]
+
+[ext_resource type="Script" uid="uid://bf1y15a282mwh" path="res://src/Scripts/Game/Player.cs" id="1_daakb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ngtlj"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_13tn8"]
+material = SubResource("ShaderMaterial_ngtlj")
+radius = 0.4
+height = 1.6
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_l2ayf"]
+radius = 0.4
+height = 1.60132
+
+[node name="Player" type="CharacterBody3D" groups=["players"]]
+script = ExtResource("1_daakb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_13tn8")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_l2ayf")

@@ -1,0 +1,69 @@
+[gd_scene load_steps=12 format=3 uid="uid://cywpu6lxdjhuu"]
+
+[ext_resource type="PackedScene" uid="uid://god1c8xarlto" path="res://src/Assets/Level/Test/scene.gltf" id="1_88eoc"]
+[ext_resource type="Script" uid="uid://bmy06251w6kct" path="res://src/Scripts/Game/GameManager.cs" id="1_x83sr"]
+[ext_resource type="Texture2D" uid="uid://bfm6o3brnhf4g" path="res://src/Assets/Level/Skybox/DaySky.jpg" id="2_13tn8"]
+[ext_resource type="Script" uid="uid://xdd030mo86al" path="res://src/Scripts/Game/Camera.cs" id="2_ngtlj"]
+[ext_resource type="PackedScene" uid="uid://d27nukgkwvu02" path="res://src/Scenes/Hyprs/Dummy.tscn" id="5_x83sr"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_13tn8"]
+panorama = ExtResource("2_13tn8")
+
+[sub_resource type="Sky" id="Sky_88eoc"]
+sky_material = SubResource("PanoramaSkyMaterial_13tn8")
+
+[sub_resource type="Environment" id="Environment_km1yn"]
+background_mode = 2
+sky = SubResource("Sky_88eoc")
+ambient_light_source = 3
+tonemap_mode = 1
+tonemap_exposure = 2.0
+tonemap_white = 2.0
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_13tn8"]
+flip_faces = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l2ayf"]
+size = Vector3(2.03516, 0.001, 1.78296)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_x83sr"]
+
+[node name="Node" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_km1yn")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(0.015895, 0.661616, 0.749674, -0.65266, -0.561144, 0.50907, 0.757484, -0.497374, 0.422891, 22.5984, 14.669, 2.56851)
+light_energy = 2.0
+light_angular_distance = 1.0
+shadow_enabled = true
+
+[node name="TestLevel" parent="." instance=ExtResource("1_88eoc")]
+transform = Transform3D(-0.7, 0, -1.05697e-07, 0, 0.7, 0, 1.05697e-07, 0, -0.7, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.999455, 0.0329982, 0, -0.0329982, 0.999455, -1.11, 2.5, 16.884)
+cull_mask = 1047553
+current = true
+fov = 70.0
+size = 0.001
+script = ExtResource("2_ngtlj")
+MaxZoom = 20.0
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(14.242, 0, 0, 0, 1, 0, 0, 0, 3.8475, -0.558611, 0, 5.40295)
+mesh = SubResource("PlaneMesh_13tn8")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
+shape = SubResource("BoxShape3D_l2ayf")
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("1_x83sr")
+PlayerScene = ExtResource("5_x83sr")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_x83sr")

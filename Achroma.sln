@@ -1,0 +1,19 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Achroma", "Achroma.csproj", "{BEB96A8E-174F-4495-87BB-619859DE7C55}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BEB96A8E-174F-4495-87BB-619859DE7C55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEB96A8E-174F-4495-87BB-619859DE7C55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEB96A8E-174F-4495-87BB-619859DE7C55}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{BEB96A8E-174F-4495-87BB-619859DE7C55}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{BEB96A8E-174F-4495-87BB-619859DE7C55}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{BEB96A8E-174F-4495-87BB-619859DE7C55}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+EndGlobal

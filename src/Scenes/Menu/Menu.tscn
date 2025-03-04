@@ -1,0 +1,137 @@
+[gd_scene load_steps=22 format=3 uid="uid://cjh6eb8ee50ml"]
+
+[ext_resource type="AudioStream" uid="uid://ckkd7cptoqm5o" path="res://src/Assets/Music/MainTheme.mp3" id="1_bgmio"]
+[ext_resource type="Script" uid="uid://dl85g1on5nect" path="res://src/Scripts/Menu/Menu.cs" id="1_wg6ki"]
+[ext_resource type="Shader" uid="uid://c6nvx455tv54" path="res://src/Shaders/Menu/Night.gdshader" id="2_wg6ki"]
+[ext_resource type="Script" uid="uid://sqbkr00fp4dh" path="res://src/Scripts/Menu/MenuSky.cs" id="3_ob4gw"]
+[ext_resource type="Shader" uid="uid://dxe1tt8p05v83" path="res://src/Shaders/Menu/Water.gdshader" id="4_q4ida"]
+[ext_resource type="Texture2D" uid="uid://byun52khca22e" path="res://src/Assets/Logo.png" id="5_bgmio"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wnyv8"]
+sky_top_color = Color(0.0254638, 0.0243528, 0.02828, 1)
+sky_horizon_color = Color(0.0917046, 0.0950408, 0.100307, 1)
+
+[sub_resource type="Sky" id="Sky_hv1vd"]
+sky_material = SubResource("ProceduralSkyMaterial_wnyv8")
+
+[sub_resource type="Environment" id="Environment_wed6s"]
+background_mode = 2
+background_energy_multiplier = 0.0
+sky = SubResource("Sky_hv1vd")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yjpse"]
+render_priority = 0
+shader = ExtResource("2_wg6ki")
+shader_parameter/vertical_sections = 21
+shader_parameter/star_size = 0.01
+shader_parameter/star_falloff = 4.0
+shader_parameter/margin = 1.2
+shader_parameter/top_color = Color(0, 0, 0, 1)
+shader_parameter/bottom_color = Color(0.0666729, 0.0666729, 0.0666729, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_2172w"]
+lightmap_size_hint = Vector2i(31417, 15709)
+material = SubResource("ShaderMaterial_yjpse")
+flip_faces = true
+radius = 1000.0
+height = 2000.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_e8pil"]
+size = Vector2(7, 7)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_f4tfj"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_yjpse"]
+seamless = true
+noise = SubResource("FastNoiseLite_f4tfj")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_2172w"]
+noise_type = 3
+frequency = 0.0411
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hv1vd"]
+seamless = true
+as_normal_map = true
+bump_strength = 32.0
+noise = SubResource("FastNoiseLite_2172w")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wed6s"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_m2cni"]
+seamless = true
+noise = SubResource("FastNoiseLite_wed6s")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f4tfj"]
+render_priority = 0
+shader = ExtResource("4_q4ida")
+shader_parameter/depth_fade_distance = 1.6
+shader_parameter/absorbance = 10.0
+shader_parameter/shallow_color = Color(0.112305, 0.113239, 0.104776, 1)
+shader_parameter/deep_color = Color(0.0266569, 0.0151206, 0.0617523, 1)
+shader_parameter/foam_amount = 0.0
+shader_parameter/foam_color = Color(0.272561, 0.272561, 0.272561, 1)
+shader_parameter/roughness = 1.0
+shader_parameter/wave_texture = SubResource("NoiseTexture2D_m2cni")
+shader_parameter/wave_scale = 4.0
+shader_parameter/height_scale = 0.15
+shader_parameter/normal1 = SubResource("NoiseTexture2D_yjpse")
+shader_parameter/wave_dir1 = Vector2(2, 0)
+shader_parameter/normal2 = SubResource("NoiseTexture2D_hv1vd")
+shader_parameter/wave_dir2 = Vector2(0.1, 1)
+shader_parameter/wave_speed = 0.015
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f4tfj"]
+shading_mode = 0
+albedo_color = Color(0.670284, 0.670284, 0.670284, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_f4tfj"]
+material = SubResource("StandardMaterial3D_f4tfj")
+radius = 70.0
+height = 140.0
+
+[node name="Node" type="Node3D" node_paths=PackedStringArray("title")]
+script = ExtResource("1_wg6ki")
+title = NodePath("Logo")
+
+[node name="MainTheme" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_bgmio")
+volume_db = 10.0
+autoplay = true
+parameters/looping = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_wed6s")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, -2.22223e-14, 8.74228e-08, -1.98561e-08, 0.973865, -0.227127, -8.5138e-08, -0.227127, -0.973865, 0, 0.0902078, -4.84412)
+fov = 80.0
+
+[node name="Skybox" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.938686, 0, 0, 0, 0.938686, 0, 0, 0, 0.938686, 0, 0, 0)
+mesh = SubResource("SphereMesh_2172w")
+script = ExtResource("3_ob4gw")
+speed = 0.02
+
+[node name="DeepSea" type="MeshInstance3D" parent="."]
+transform = Transform3D(13.2195, 0, 0, 0, 1, 0, 0, 0, 15.1669, 0, -0.235427, 0)
+mesh = SubResource("PlaneMesh_e8pil")
+surface_material_override/0 = SubResource("ShaderMaterial_f4tfj")
+
+[node name="Light1" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.701873, 0.690351, -0.175469, 0.569365, 0.691763, 0.44417, 0.428016, 0.211845, -0.878592, 0, 3.8208, 7.16248)
+light_energy = 0.3
+
+[node name="Light2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.810492, 0.58575, 0, -0.58575, 0.810492, 0, 9.28305, 2.27109)
+light_energy = 0.3
+
+[node name="WhiteHole" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 122.144)
+mesh = SubResource("SphereMesh_f4tfj")
+
+[node name="Logo" type="Sprite2D" parent="."]
+position = Vector2(1246, 28)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("5_bgmio")
+centered = false
+offset = Vector2(-128, 0)
